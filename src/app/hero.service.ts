@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
 
 import { Hero } from './hero';
 import { HEROES } from './mock-hero'; 
@@ -6,6 +8,7 @@ import { HEROES } from './mock-hero';
 @Injectable({
   providedIn: 'root'
 })
+
 
 export class HeroService {
   //Lets Add some Advertisement Heroes.
@@ -15,8 +18,14 @@ export class HeroService {
   	this.ADV_HEROES = this.loadAdvHeroes();
   }
 
-  getHeroes(): Hero[] {
-  	return HEROES.concat(this.ADV_HEROES);
+  pauseComp() : void{
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + 100){ /* do nothing */ } 
+  }
+
+  getHeroes(): Observable<Hero[]> {
+  	//this.pauseComp();
+  	return of(HEROES.concat(this.ADV_HEROES));
   }
 
   loadAdvHeroes():Hero[] {
