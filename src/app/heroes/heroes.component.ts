@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Hero } from '../hero';
-import { HEROES } from '../mock-hero';
+
+/* 
+ We will consume this as service 
+import { HEROES } from '../mock-hero'; 
+*/
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-heroes',
@@ -10,7 +16,13 @@ import { HEROES } from '../mock-hero';
 export class HeroesComponent implements OnInit {
   notes = "Welcome!!";
 
+/*
+  // Lets consume from service.
   heroes = HEROES;
+*/
+
+  // heroes of type array simple declaration.
+  heroes : Hero[];
 
 // declaring object of type Hero
   selectedHero: Hero;
@@ -19,9 +31,14 @@ export class HeroesComponent implements OnInit {
   	this.selectedHero = hero;
   }
 
-  constructor() {}
+  constructor( private heroService: HeroService) {}
 
   ngOnInit() {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
   }
 
 }
