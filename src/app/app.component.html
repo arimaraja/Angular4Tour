@@ -4,8 +4,12 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<p> <b> AppHeroes moved to link /heroes try that in url 
-  <a href="http://localhost:4200/heroes"> http://localhost:4200/heroes </a> </b> <p>
+
+<nav>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+
+<app-dashboard></app-dashboard>
 <router-outlet></router-outlet>
 <!-- <app-heroes></app-heroes> -->
 <app-messages></app-messages>
