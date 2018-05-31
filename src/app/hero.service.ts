@@ -25,6 +25,13 @@ export class HeroService {
     while(new Date().getTime() < now + 100){ /* do nothing */ } 
   }
 
+  getHero(id: number): Observable<Hero> {
+    // TODO: send the message _after_ fetching the hero
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(HEROES.find(hero => hero.id === id));
+  }
+
+
   getHeroes(): Observable<Hero[]> {
   	//this.pauseComp();
     console.log('getHeroes: Pushing the heros');

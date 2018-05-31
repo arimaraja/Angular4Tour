@@ -26,14 +26,9 @@ export class HeroesComponent implements OnInit {
   // heroes of type array simple declaration.
   heroes : Hero[];
 
-// declaring object of type Hero
-  selectedHero: Hero;
-
-  onSelect(hero: Hero ): void {
-  	this.selectedHero = hero;
-
+  auditMessage(hero: Hero):void {
     //log the heros selected.
-    this.messageService.add('HeroService: '+ hero.name );
+    this.messageService.add('HeroService: '+ hero.name );    
   }
 
   constructor( private heroService: HeroService, private messageService:MessageService) 
