@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { Hero } from './hero';
 import { HEROES } from './mock-hero'; 
 
+import { MessageService } from './message.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,7 @@ export class HeroService {
   //Lets Add some Advertisement Heroes.
   ADV_HEROES: Hero[]; 
 
-  constructor() { 
+  constructor(private messageService: MessageService ) { 
   	this.ADV_HEROES = this.loadAdvHeroes();
   }
 
@@ -25,6 +27,8 @@ export class HeroService {
 
   getHeroes(): Observable<Hero[]> {
   	//this.pauseComp();
+    console.log('getHeroes: Pushing the heros');
+    this.messageService.add('HeroService: fetched heros');
   	return of(HEROES.concat(this.ADV_HEROES));
   }
 

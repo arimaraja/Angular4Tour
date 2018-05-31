@@ -8,6 +8,8 @@ import { HEROES } from '../mock-hero';
 */
 import { HeroService } from '../hero.service';
 
+import {MessageService} from '../message.service';
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -29,9 +31,13 @@ export class HeroesComponent implements OnInit {
 
   onSelect(hero: Hero ): void {
   	this.selectedHero = hero;
+
+    //log the heros selected.
+    this.messageService.add('HeroService: '+ hero.name );
   }
 
-  constructor( private heroService: HeroService) {}
+  constructor( private heroService: HeroService, private messageService:MessageService) 
+  {}
 
   ngOnInit() {
     this.getHeroes();
