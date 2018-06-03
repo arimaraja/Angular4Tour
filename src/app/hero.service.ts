@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
+
 import { Hero } from './hero';
 //import { HEROES } from './mock-hero'; 
 
@@ -24,7 +25,9 @@ export class HeroService {
   //Lets Add some Advertisement Heroes.
   //ADV_HEROES: Hero[]; 
 
-  private heroesUrl = 'api/heroes';  // URL to web api
+  //private heroesUrl = 'api/heroes';  // URL to web api
+  //Django URL
+  private heroesUrl = 'http://localhost:8000/polls/voters';  // URL to web api
 
   constructor( private http: HttpClient, 
                 private messageService: MessageService ) { 
@@ -33,9 +36,10 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes (): Observable<Hero[]> {
+    this.log('getHeroes: HTTP get called ' + this.heroesUrl);
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
-        tap(heroes => this.log(`fetched heroes`)),
+        tap(heroes => this.log(`fetched heroes` )),
         catchError(this.handleError('getHeroes', []))
       );
   }
@@ -79,6 +83,8 @@ export class HeroService {
 
   /** POST: add a new hero to the server */
   addHero (hero: Hero): Observable<Hero> {
+    if (hero.email == null) hero.email = hero.name+"@gmail.com";
+
     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap((hero: Hero) => this.log(`added hero w/ id=${hero.id}`)),
       catchError(this.handleError<Hero>('addHero'))
@@ -88,7 +94,7 @@ export class HeroService {
   /** DELETE: delete the hero from the server */
   deleteHero (hero: Hero | number): Observable<Hero> {
     const id = typeof hero === 'number' ? hero : hero.id;
-    const url = `${this.heroesUrl}/${id}`;
+    const url = `${this.heroesUrl}/${id}/`;
 
     return this.http.delete<Hero>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted hero id=${id}`)),
